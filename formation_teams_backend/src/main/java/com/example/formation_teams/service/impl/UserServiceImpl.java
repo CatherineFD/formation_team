@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 @Transactional
 @AllArgsConstructor
 @Setter
-@NoArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private UserRepo userRepo;

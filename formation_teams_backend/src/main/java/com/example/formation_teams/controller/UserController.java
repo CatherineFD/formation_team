@@ -24,14 +24,13 @@ public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> addTestResultToUser() {
         System.out.println("Login req");
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("login")
+    @PostMapping("/register")
     public ResponseEntity<?> saveUser(@Valid @RequestBody UserRequest user) {
         User newUser = userService.create(user);
         log.debug("Creating user {}", user);
