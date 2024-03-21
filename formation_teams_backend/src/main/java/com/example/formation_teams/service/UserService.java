@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface UserService extends UserDetailsService {
+public interface UserService {
     User create(UserRequest user);
 
     User getByEmail(String email);

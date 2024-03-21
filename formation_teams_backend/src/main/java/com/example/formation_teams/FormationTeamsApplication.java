@@ -34,9 +34,5 @@ public class FormationTeamsApplication {
 		return bean;
 	}
 
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 
 }

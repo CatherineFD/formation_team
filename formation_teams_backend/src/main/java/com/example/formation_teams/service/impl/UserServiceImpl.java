@@ -77,14 +77,4 @@ public class UserServiceImpl implements UserService {
         return userRepo.findAll();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getByEmail(username);
-        log.info("Finding a user " + username);
-        if(user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-
-        return user;
-    }
 }
