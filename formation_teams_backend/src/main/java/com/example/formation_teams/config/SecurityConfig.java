@@ -10,19 +10,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 @AllArgsConstructor
-public class SecurityConfig{
-
+@EnableWebSecurity
+public class SecurityConfig {
 
     @Bean
-    protected SecurityFilterChain configureHttp(HttpSecurity http) throws Exception {
+    protected SecurityFilterChain configureHttp(HttpSecurity http) throws Exception{
+        http.csrf((csrf) -> csrf.disable());
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/login", "/register", "/static/*", "/static/images/*").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/register").permitAll()
+                        .requestMatchers("/login", "/registration", "/static/*",
+                                "/static/images/*", "/images/*").permitAll()
                         .anyRequest().authenticated()
+
                 )
+
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/user")
@@ -33,15 +35,12 @@ public class SecurityConfig{
                         .invalidateHttpSession(true) // Удаление данных сессии
                         .deleteCookies("JSESSIONID")
                         .permitAll())
-                .csrf((csrf)->csrf.disable());
+
         ;
+
 
         return http.build();
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }

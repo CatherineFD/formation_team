@@ -37,6 +37,9 @@ public class User implements UserDetails {
     @Pattern(regexp = "^((8|\\+7|\\+1|\\+3)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$", message = "Phone must be '+{0}(000)000-00-00'")
     private String phone;
 
+    @Enumerated(EnumType.STRING)
+    private SystemRole systemRole;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
