@@ -1,6 +1,7 @@
 package com.example.formation_teams.controller;
 
 import com.example.formation_teams.dto.request.UserRequest;
+import com.example.formation_teams.dto.response.LoginResponse;
 import com.example.formation_teams.dto.response.UserResponse;
 import com.example.formation_teams.model.User;
 import com.example.formation_teams.service.UserService;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,10 +28,16 @@ public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-    @PostMapping("/login")
-    public ResponseEntity<?> addTestResultToUser() {
-        System.out.println("Login req");
-        return ResponseEntity.ok().build();
+    @GetMapping("/login")
+    public ResponseEntity<?> getIdByEmail(Principal principal) {
+
+        if (principal != null)
+        {
+            User user = userService.getByEmail(principal.getName());
+            return ResponseEntity.ok(LoginResponse.fromUser(user));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PostMapping("/register")
@@ -38,6 +48,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(UserResponse.fromUser(newUser));
 
+    }
+
+    @GetMapping("/all-users")
+    public ResponseEntity<List<UserResponse>> getByAll() {
+        List<User> users = userService.findAll();
+
+        return ResponseEntity.ok(users.stream().map(u -> UserResponse.fromUser(u)).collect(Collectors.toList()));
     }
 
 }
