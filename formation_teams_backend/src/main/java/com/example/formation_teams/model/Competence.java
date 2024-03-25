@@ -23,7 +23,6 @@ public class Competence {
     @ElementCollection
     @CollectionTable(name = "question_competence",
             joinColumns = @JoinColumn(name = "competence_id"))
-    @Column(name = "competence_id")
     private List<Integer> questions;
 
     @ManyToMany(mappedBy = "competences")
