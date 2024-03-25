@@ -11,10 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,6 +53,17 @@ public class UserController {
         List<User> users = userService.findAll();
 
         return ResponseEntity.ok(users.stream().map(u -> UserResponse.fromUser(u)).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id, Principal principal) {
+
+        var requestedUser = userService.getById(id);
+        var requestingUser = userService.getByEmail(principal.getName());
+
+        var response = UserResponse.fromUser(requestedUser);
+
+        return ResponseEntity.ok(response);
     }
 
 }

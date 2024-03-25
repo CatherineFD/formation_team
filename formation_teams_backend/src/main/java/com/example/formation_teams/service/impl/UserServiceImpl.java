@@ -77,4 +77,20 @@ public class UserServiceImpl implements UserService {
         return userRepo.findAll();
     }
 
+    @Override
+    public User getById(long id) {
+        log.debug("Finding user by id {}", id);
+
+        Optional<User> userOpt = userRepo.findById(id);
+
+        if(userOpt.isPresent()) {
+            log.debug("User with id: {} found. User: {}", id, userOpt.get());
+
+            User user = userOpt.get();
+            return user;
+        } else throw new NotFoundException("User with id " + id + " not found");
+
+    }
+
+
 }
