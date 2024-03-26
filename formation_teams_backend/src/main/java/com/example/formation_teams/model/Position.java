@@ -29,4 +29,7 @@ public class Position {
             joinColumns = @JoinColumn(name = "position_id"),
             inverseJoinColumns = @JoinColumn(name = "competence_id"))
     private List<Competence> competences;
+
+    @ManyToMany(mappedBy = "positions")
+    private List<User> users;
 }

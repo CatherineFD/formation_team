@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -38,4 +39,12 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private SystemRole systemRole;
+
+    @ManyToMany
+    @JoinTable(name="appoint_test",
+    joinColumns = @JoinColumn(name="user_id"),
+    inverseJoinColumns = @JoinColumn(name="position_id"))
+    List<Position> positions;
+
+//    список позиций на которые назначены пользователи list<position>
 }

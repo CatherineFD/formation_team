@@ -2,8 +2,10 @@ package com.example.formation_teams.controller;
 
 import com.example.formation_teams.dto.request.UserRequest;
 import com.example.formation_teams.dto.response.LoginResponse;
+import com.example.formation_teams.dto.response.PositionNameResponse;
 import com.example.formation_teams.dto.response.UserResponse;
 import com.example.formation_teams.model.User;
+import com.example.formation_teams.service.PositionService;
 import com.example.formation_teams.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class UserController {
 
 
     private final UserService userService;
+    private final PositionService positionService;
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -64,6 +67,22 @@ public class UserController {
         var response = UserResponse.fromUser(requestedUser);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/user/{id}/appoint-test")
+    public ResponseEntity<?> appontTest(@PathVariable Long id, Principal principal) {
+
+        var requestedPosition = positionService.findUserById(id);
+
+//        var response = PositionNameResponse.fromPositionName(requestedPosition);
+
+//        создаю сервис, который отвечает за позиции
+        // должен быть метод на вход - пользователя и позицую, которую нужно добавить
+        //для пользователя я получаю позиции которые назначены, добавляю позиции, которые нужно добавить
+        //для пользователя вызываю метод save (репозиторий)
+        //измения будут отображены в базе
+//        ResponseEntity.ok(requestedPosition.stream().map(u -> PositionNameResponse.fromPositionName(u)).collect(Collectors.toList()));
+        return ResponseEntity.ok(requestedPosition.stream().map(u -> PositionNameResponse.fromPositionName(u)).collect(Collectors.toList()));
     }
 
 }
