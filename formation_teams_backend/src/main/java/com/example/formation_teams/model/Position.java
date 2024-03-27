@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name="position")
+@Table(name="positions")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,9 +20,11 @@ public class Position {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long positionId;
 
     private String position;
+
+    private Boolean isPassed;
 
     @ManyToMany
     @JoinTable(name = "test_value",

@@ -46,5 +46,10 @@ public class User {
     inverseJoinColumns = @JoinColumn(name="position_id"))
     List<Position> positions;
 
-//    список позиций на которые назначены пользователи list<position>
+    @OneToMany(mappedBy = "user")
+    List<AppointTest> appointTests;
+
+    //в пользователя можно добавить общий результат и пройден тест или нет
+
+    //результат созраняем в сущность resultCompetence
 }

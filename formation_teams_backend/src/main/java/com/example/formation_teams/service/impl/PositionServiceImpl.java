@@ -1,7 +1,9 @@
 package com.example.formation_teams.service.impl;
 
 import com.example.formation_teams.model.Position;
+import com.example.formation_teams.model.User;
 import com.example.formation_teams.repo.PositionRepo;
+import com.example.formation_teams.repo.UserRepo;
 import com.example.formation_teams.service.PositionService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 public class PositionServiceImpl implements PositionService {
 
     private PositionRepo positionRepo;
+
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
@@ -26,4 +29,5 @@ public class PositionServiceImpl implements PositionService {
         log.debug("Getting positions for user");
         return positionRepo.findByUsersUserId(id);
     }
+
 }

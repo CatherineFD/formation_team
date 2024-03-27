@@ -4,7 +4,9 @@ package com.example.formation_teams.service.impl;
 import com.example.formation_teams.dto.request.UserRequest;
 import com.example.formation_teams.exceptions.AlreadyExistsException;
 import com.example.formation_teams.exceptions.NotFoundException;
+import com.example.formation_teams.model.Position;
 import com.example.formation_teams.model.User;
+import com.example.formation_teams.repo.PositionRepo;
 import com.example.formation_teams.repo.UserRepo;
 import com.example.formation_teams.service.UserService;
 import jakarta.transaction.Transactional;
@@ -28,6 +30,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private UserRepo userRepo;
+    private PositionRepo positionRepo;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     @Override
@@ -90,6 +93,25 @@ public class UserServiceImpl implements UserService {
             return user;
         } else throw new NotFoundException("User with id " + id + " not found");
 
+    }
+
+    @Override
+    public User addPositionUser(Long idUser, Long idPosition) {
+        User user = userRepo.findById(idUser).orElse(null);
+
+        if (user == null) {
+            throw new NotFoundException("User with id " + idUser + " not found");
+        }
+        Position position = positionRepo.findById(idPosition).orElse(null);
+
+        if (position == null) {
+            throw new NotFoundException("Position with id " + idPosition + " not found");
+        }
+
+        user.getPositions().add(position);
+
+
+        return userRepo.save(user);
     }
 
 

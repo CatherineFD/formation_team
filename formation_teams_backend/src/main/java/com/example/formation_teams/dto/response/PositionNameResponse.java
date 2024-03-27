@@ -14,7 +14,7 @@ public class PositionNameResponse {
 
     public static PositionNameResponse fromPositionName(Position position) {
         return builder()
-                .id(position.getId())
+                .id(position.getPositionId())
                 .name(position.getPosition())
                 .build();
     }

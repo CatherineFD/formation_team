@@ -1,9 +1,12 @@
 package com.example.formation_teams.controller;
 
+import com.example.formation_teams.dto.request.PositionRequest;
 import com.example.formation_teams.dto.request.UserRequest;
 import com.example.formation_teams.dto.response.LoginResponse;
 import com.example.formation_teams.dto.response.PositionNameResponse;
 import com.example.formation_teams.dto.response.UserResponse;
+import com.example.formation_teams.model.AppointTest;
+import com.example.formation_teams.model.Position;
 import com.example.formation_teams.model.User;
 import com.example.formation_teams.service.PositionService;
 import com.example.formation_teams.service.UserService;
@@ -70,9 +73,21 @@ public class UserController {
     }
 
     @PostMapping("/user/{id}/appoint-test")
-    public ResponseEntity<?> appontTest(@PathVariable Long id, Principal principal) {
+    public ResponseEntity<?> appointTest(@PathVariable Long id, Principal principal, @RequestParam long positionId) {
 
-        var requestedPosition = positionService.findUserById(id);
+//        var requestedPosition = positionService.findUserById(id);
+        User user = userService.getById(id);
+
+        boolean isAppoint = false;
+        for (AppointTest appointTest: user.getAppointTests()) {
+             if (appointTest.getId().getPositionId() == positionId && !appointTest.isPassed()) {
+               isAppoint = true;
+            }
+        }
+        if(!isAppoint) {
+            user = userService.addPositionUser(id, positionId);
+        }
+
 
 //        var response = PositionNameResponse.fromPositionName(requestedPosition);
 
@@ -82,7 +97,8 @@ public class UserController {
         //для пользователя вызываю метод save (репозиторий)
         //измения будут отображены в базе
 //        ResponseEntity.ok(requestedPosition.stream().map(u -> PositionNameResponse.fromPositionName(u)).collect(Collectors.toList()));
-        return ResponseEntity.ok(requestedPosition.stream().map(u -> PositionNameResponse.fromPositionName(u)).collect(Collectors.toList()));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(UserResponse.fromUser(user));
     }
 
 }

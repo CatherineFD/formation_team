@@ -1,10 +1,14 @@
 package com.example.formation_teams.dto.response;
 
+import com.example.formation_teams.model.Position;
 import com.example.formation_teams.model.User;
+import com.example.formation_teams.dto.response.PositionNameResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +22,7 @@ public class UserResponse {
     private String lastName;
     private String phone;
     private String position;
+    private List<PositionNameResponse> positions;
 
     public static UserResponse fromUser(User user) {
         return builder()
@@ -27,6 +32,7 @@ public class UserResponse {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .position(user.getPosition())
+                .positions(user.getPositions().stream().map(PositionNameResponse::fromPositionName).toList())
                 .build();
     }
 }
