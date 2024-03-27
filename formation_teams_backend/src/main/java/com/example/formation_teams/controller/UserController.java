@@ -8,6 +8,7 @@ import com.example.formation_teams.dto.response.UserResponse;
 import com.example.formation_teams.model.AppointTest;
 import com.example.formation_teams.model.Position;
 import com.example.formation_teams.model.User;
+import com.example.formation_teams.service.AppointTestService;
 import com.example.formation_teams.service.PositionService;
 import com.example.formation_teams.service.UserService;
 import jakarta.validation.Valid;
@@ -29,6 +30,7 @@ public class UserController {
 
     private final UserService userService;
     private final PositionService positionService;
+    private final AppointTestService appointTestService;
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -73,7 +75,7 @@ public class UserController {
     }
 
     @PostMapping("/user/{id}/appoint-test")
-    public ResponseEntity<?> appointTest(@PathVariable Long id, Principal principal, @RequestParam long positionId) {
+    public ResponseEntity<?> appointTest(@PathVariable Long id, @RequestParam long positionId) {
 
 //        var requestedPosition = positionService.findUserById(id);
         User user = userService.getById(id);
@@ -82,10 +84,12 @@ public class UserController {
         for (AppointTest appointTest: user.getAppointTests()) {
              if (appointTest.getId().getPositionId() == positionId && !appointTest.isPassed()) {
                isAppoint = true;
+               break;
             }
         }
         if(!isAppoint) {
-            user = userService.addPositionUser(id, positionId);
+            appointTestService.appointTest(user, positionId);
+            user = userService.getById(id);
         }
 
 

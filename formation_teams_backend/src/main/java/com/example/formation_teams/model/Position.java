@@ -24,7 +24,6 @@ public class Position {
 
     private String position;
 
-    private Boolean isPassed;
 
     @ManyToMany
     @JoinTable(name = "test_value",

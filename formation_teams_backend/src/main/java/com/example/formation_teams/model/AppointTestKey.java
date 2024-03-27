@@ -16,10 +16,10 @@ import java.io.Serializable;
 @Embeddable
 public class AppointTestKey implements Serializable {
 
-    @Column(name="user_id")
+    @Column(name="user_id",insertable=false, updatable=false)
     private long userId;
 
-    @Column(name="position_id")
+    @Column(name="position_id",insertable=false, updatable=false)
     private long positionId;
 
 }
