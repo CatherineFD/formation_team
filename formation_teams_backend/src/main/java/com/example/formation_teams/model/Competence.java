@@ -16,13 +16,14 @@ public class Competence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long competenceId;
 
     private String competence;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "question_competence",
             joinColumns = @JoinColumn(name = "competence_id"))
+    @Column(name = "question_id")
     private List<Integer> questions;
 
     @ManyToMany(mappedBy = "competences")

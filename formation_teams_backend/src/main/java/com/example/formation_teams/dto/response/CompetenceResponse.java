@@ -22,7 +22,7 @@ public class CompetenceResponse {
     public static CompetenceResponse fromCompetence(Competence competence) {
 
         return builder()
-                .id(competence.getId())
+                .id(competence.getCompetenceId())
                 .nameCompetence(competence.getCompetence())
                 .questions(competence.getQuestions())
                 .build();
