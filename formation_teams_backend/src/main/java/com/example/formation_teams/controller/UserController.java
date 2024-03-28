@@ -77,7 +77,6 @@ public class UserController {
     @PostMapping("/user/{id}/appoint-test")
     public ResponseEntity<?> appointTest(@PathVariable Long id, @RequestParam long positionId) {
 
-//        var requestedPosition = positionService.findUserById(id);
         User user = userService.getById(id);
 
         boolean isAppoint = false;
@@ -91,16 +90,7 @@ public class UserController {
             appointTestService.appointTest(user, positionId);
             user = userService.getById(id);
         }
-
-
-//        var response = PositionNameResponse.fromPositionName(requestedPosition);
-
-//        создаю сервис, который отвечает за позиции
-        // должен быть метод на вход - пользователя и позицую, которую нужно добавить
-        //для пользователя я получаю позиции которые назначены, добавляю позиции, которые нужно добавить
-        //для пользователя вызываю метод save (репозиторий)
-        //измения будут отображены в базе
-//        ResponseEntity.ok(requestedPosition.stream().map(u -> PositionNameResponse.fromPositionName(u)).collect(Collectors.toList()));
+        
         return ResponseEntity.status(HttpStatus.OK)
                 .body(UserResponse.fromUser(user));
     }
