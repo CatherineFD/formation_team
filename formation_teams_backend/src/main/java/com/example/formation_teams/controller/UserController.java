@@ -2,10 +2,12 @@ package com.example.formation_teams.controller;
 
 import com.example.formation_teams.dto.request.PositionRequest;
 import com.example.formation_teams.dto.request.UserRequest;
+import com.example.formation_teams.dto.response.CompetenceResponse;
 import com.example.formation_teams.dto.response.LoginResponse;
 import com.example.formation_teams.dto.response.PositionNameResponse;
 import com.example.formation_teams.dto.response.UserResponse;
 import com.example.formation_teams.model.AppointTest;
+import com.example.formation_teams.model.Competence;
 import com.example.formation_teams.model.Position;
 import com.example.formation_teams.model.User;
 import com.example.formation_teams.service.AppointTestService;
@@ -90,9 +92,30 @@ public class UserController {
             appointTestService.appointTest(user, positionId);
             user = userService.getById(id);
         }
-        
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(UserResponse.fromUser(user));
+    }
+
+    @GetMapping("user/{id}/test")
+    public ResponseEntity<?> getTestById(@PathVariable Long id, @RequestParam long positionId) {
+
+        //идти через principal а не id
+        User user = userService.getById(id);
+        List<Competence> competencies;
+
+        boolean isAppoint = false;
+        for (AppointTest appointTest: user.getAppointTests()) {
+            if(appointTest.getId().getPositionId() == positionId) {
+                isAppoint = true;
+                break;
+            }
+        }
+
+        competencies = userService.getQuestionTest(positionId);
+
+        return ResponseEntity.ok(competencies.stream().map(u -> CompetenceResponse.fromCompetence(u)).collect(Collectors.toList()));
+
     }
 
 }

@@ -21,10 +21,4 @@ public interface PositionRepo extends JpaRepository<Position, Long> {
             nativeQuery = true)
     List<Position> findByUsersUserId(Long userId);
 
-
-    @Modifying
-    @Transactional
-    @Query(value = "INSERT INTO appoint_test (user_id, position_id) VALUES (?1, ?2)", nativeQuery = true)
-    void addPositionUser(Long idUser, Long idPosition);
-
 }

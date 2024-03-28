@@ -4,8 +4,10 @@ package com.example.formation_teams.service.impl;
 import com.example.formation_teams.dto.request.UserRequest;
 import com.example.formation_teams.exceptions.AlreadyExistsException;
 import com.example.formation_teams.exceptions.NotFoundException;
+import com.example.formation_teams.model.Competence;
 import com.example.formation_teams.model.Position;
 import com.example.formation_teams.model.User;
+import com.example.formation_teams.repo.CompetenceRepo;
 import com.example.formation_teams.repo.PositionRepo;
 import com.example.formation_teams.repo.UserRepo;
 import com.example.formation_teams.service.UserService;
@@ -31,6 +33,8 @@ public class UserServiceImpl implements UserService {
 
     private UserRepo userRepo;
     private PositionRepo positionRepo;
+    private CompetenceRepo competenceRepo;
+
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     @Override
@@ -112,6 +116,17 @@ public class UserServiceImpl implements UserService {
 
 
         return userRepo.save(user);
+    }
+
+    @Override
+    public List<Competence> getQuestionTest(Long id) {
+
+        Position position = positionRepo.findById(id).orElse(null);
+
+        List<Competence> competences = position.getCompetences();
+
+
+        return competences;
     }
 
 

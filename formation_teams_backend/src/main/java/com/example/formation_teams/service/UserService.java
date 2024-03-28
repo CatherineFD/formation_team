@@ -1,6 +1,7 @@
 package com.example.formation_teams.service;
 
 import com.example.formation_teams.dto.request.UserRequest;
+import com.example.formation_teams.model.Competence;
 import com.example.formation_teams.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,6 @@ public interface UserService {
     User getById(long id);
 
     User addPositionUser(Long idUser, Long idPosition);
+
+    List<Competence> getQuestionTest(Long id);
 }
