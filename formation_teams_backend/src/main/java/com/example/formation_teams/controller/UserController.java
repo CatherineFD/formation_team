@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,12 +98,11 @@ public class UserController {
                 .body(UserResponse.fromUser(user));
     }
 
-    @GetMapping("user/{id}/test")
-    public ResponseEntity<?> getTestById(@PathVariable Long id, @RequestParam long positionId) {
+    @GetMapping("user/test-competence")
+    public ResponseEntity<?> getTestById(@RequestParam long positionId, Principal principal) {
 
-        //идти через principal а не id
-        User user = userService.getById(id);
-        List<Competence> competencies;
+        User user = userService.getByEmail(principal.getName());
+        List<Competence> competencies = new ArrayList<>();
 
         boolean isAppoint = false;
         for (AppointTest appointTest: user.getAppointTests()) {
@@ -112,7 +112,9 @@ public class UserController {
             }
         }
 
-        competencies = userService.getQuestionTest(positionId);
+        if (isAppoint) {
+            competencies = userService.getQuestionTest(positionId);
+        }
 
         return ResponseEntity.ok(competencies.stream().map(u -> CompetenceResponse.fromCompetence(u)).collect(Collectors.toList()));
 
