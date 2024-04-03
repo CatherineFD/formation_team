@@ -49,6 +49,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<AppointTest> appointTests;
 
+    @OneToMany(mappedBy = "user")
+    List<PassingTest> passingTest;
+
+
     //в пользователя можно добавить общий результат и пройден тест или нет
 
     //результат созраняем в сущность resultCompetence

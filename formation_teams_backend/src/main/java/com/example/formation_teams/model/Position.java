@@ -33,4 +33,7 @@ public class Position {
 
     @ManyToMany(mappedBy = "positions")
     private List<User> users;
+
+    @OneToMany(mappedBy = "position")
+    private List<PassingTest> passingTest;
 }
