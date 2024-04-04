@@ -32,7 +32,7 @@ public class PassingTestServiceImpl implements PassingTestService {
         passingTest.setResult(countResultQuestions(passingTest.getAnswers()));
 
         int countNumberQuestions = passingTest.getAnswers().size();
-        passingTest.setNumberQuestion(countNumberQuestions);
+        passingTest.setNumberQuestions(countNumberQuestions);
 
         Date currestDate = new Date();
         passingTest.setDatePassing(currestDate);

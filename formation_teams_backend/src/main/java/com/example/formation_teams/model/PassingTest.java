@@ -23,7 +23,7 @@ public class PassingTest {
     private Long passingId;
 
     @ManyToOne(fetch= FetchType.EAGER)
-    @JoinColumn(name="id")
+    @JoinColumn(name="user_id")
     private User user;
 
     @ManyToOne(fetch= FetchType.EAGER)
@@ -32,7 +32,7 @@ public class PassingTest {
 
     private Date datePassing;
 
-    private int numberQuestion;
+    private int numberQuestions;
 
     private int result;
 
