@@ -18,10 +18,11 @@ public class AnswerTestValueRequest {
     private int answer;
 
 
-    public AnswerTestValue toAnswer() {
+    public AnswerTestValue toAnswer(Long id) {
         AnswerTestValue answerTestValue = new AnswerTestValue();
         AnswerTestValueKey answerTestValueKey = new AnswerTestValueKey();
 
+        answerTestValueKey.setPassingId(id);
         answerTestValueKey.setQuestionId(this.number);
 
         answerTestValue.setId(answerTestValueKey);

@@ -31,7 +31,7 @@ public class TestCompetenceController {
         Position position = positionService.findById(positionId);
 
         PassingTest passingTest = passingTestService.create(passingTestRequest, user, position);
-        return null;
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -1,6 +1,5 @@
 package com.example.formation_teams.service.impl;
 
-import com.example.formation_teams.dto.request.AnswerTestValueRequest;
 import com.example.formation_teams.dto.request.PassingTestRequest;
 import com.example.formation_teams.model.AnswerTestValue;
 import com.example.formation_teams.model.PassingTest;
@@ -24,8 +23,10 @@ public class PassingTestServiceImpl implements PassingTestService {
     @Override
     public PassingTest create(PassingTestRequest passingTestRequest, User user, Position position) {
 
-        PassingTest passingTest = passingTestRequest.toPassintTest();
+//        PassingTest passingTest = passingTestRequest.toPassingTest();
+        PassingTest passingTest = passingTestRepo.save(new PassingTest());
 
+        passingTest = passingTestRequest.toPassingTest(passingTest.getPassingId());
         passingTest.setPosition(position);
         passingTest.setUser(user);
         passingTest.setResult(countResultQuestions(passingTest.getAnswers()));

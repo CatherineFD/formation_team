@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class AnswerTestValueKey implements Serializable {
 
     @Column(name="passing_id", insertable=false, updatable=false)
-    private int passingId;
+    private Long passingId;
 
     @Column(name="question_id", insertable=false, updatable=false)
     private int questionId;

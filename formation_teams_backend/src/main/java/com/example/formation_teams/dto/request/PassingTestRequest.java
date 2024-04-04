@@ -1,7 +1,5 @@
 package com.example.formation_teams.dto.request;
 
-import com.example.formation_teams.model.AnswerTestValue;
-import com.example.formation_teams.model.AnswerTestValueKey;
 import com.example.formation_teams.model.PassingTest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,11 +16,11 @@ public class PassingTestRequest {
 
    private List<AnswerTestValueRequest> answers;
 
-   public PassingTest toPassintTest() {
+   public PassingTest toPassingTest(Long id) {
 
       PassingTest passingTest = new PassingTest();
 
-      passingTest.setAnswers(this.answers.stream().map(u -> u.toAnswer()).toList());
+      passingTest.setAnswers(this.answers.stream().map(u -> u.toAnswer(id)).toList());
 
       return passingTest;
    }
