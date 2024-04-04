@@ -7,4 +7,6 @@ import java.util.List;
 public interface PositionService {
 
     List<Position> findUserById(Long id);
+
+    Position findById(Long id);
 }

@@ -1,11 +1,18 @@
 package com.example.formation_teams.service.impl;
 
+import com.example.formation_teams.dto.request.AnswerTestValueRequest;
 import com.example.formation_teams.dto.request.PassingTestRequest;
+import com.example.formation_teams.model.AnswerTestValue;
 import com.example.formation_teams.model.PassingTest;
+import com.example.formation_teams.model.Position;
+import com.example.formation_teams.model.User;
 import com.example.formation_teams.repo.PassingTestRepo;
 import com.example.formation_teams.service.PassingTestService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -15,18 +22,31 @@ public class PassingTestServiceImpl implements PassingTestService {
 
 
     @Override
-    public PassingTest create(PassingTestRequest passingTestRequest) {
+    public PassingTest create(PassingTestRequest passingTestRequest, User user, Position position) {
 
+        PassingTest passingTest = passingTestRequest.toPassintTest();
 
-        PassingTest passingTest = createPassing(passingTestRequest);
-        return null;
+        passingTest.setPosition(position);
+        passingTest.setUser(user);
+        passingTest.setResult(countResultQuestions(passingTest.getAnswers()));
+
+        int countNumberQuestions = passingTest.getAnswers().size();
+        passingTest.setNumberQuestion(countNumberQuestions);
+
+        Date currestDate = new Date();
+        passingTest.setDatePassing(currestDate);
+        return passingTestRepo.save(passingTest);
     }
 
-    public PassingTest createPassing(PassingTestRequest passingTestRequest) {
+    private int countResultQuestions(List<AnswerTestValue> answersTestValue) {
+        int countNumber = 0;
 
-        PassingTest passingTest = new PassingTest();
+        for (AnswerTestValue answer: answersTestValue) {
+            countNumber += answer.getAnswer();
+        }
 
-        passingTest.setAnswers(passingTestRequest.getAnswers());
-        return null;
+        return countNumber;
     }
+
+
 }

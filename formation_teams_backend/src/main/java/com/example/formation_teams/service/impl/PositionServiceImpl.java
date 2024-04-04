@@ -30,4 +30,10 @@ public class PositionServiceImpl implements PositionService {
         return positionRepo.findByUsersUserId(id);
     }
 
+    @Override
+    public Position findById(Long id) {
+        log.debug("Getting position by id");
+        return positionRepo.findById(id).orElse(null);
+    }
+
 }
