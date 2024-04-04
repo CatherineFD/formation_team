@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="passing_test")
@@ -21,19 +23,19 @@ public class PassingTest {
     private Long passingId;
 
     @ManyToOne(fetch= FetchType.EAGER)
-    @JoinColumn(name="users")
-    @MapsId("userId")
-    private User userId;
+    @JoinColumn(name="id")
+    private User user;
 
     @ManyToOne(fetch= FetchType.EAGER)
-    @JoinColumn(name="positions")
-    @MapsId("positionId")
+    @JoinColumn(name="position_id")
     private Position position;
 
-
-    private Timestamp datePassing;
+    private Date datePassing;
 
     private int numberQuestion;
 
     private int result;
+
+    @OneToMany(mappedBy = "passingTest")
+    private List<AnswerTestValue> answers;
 }

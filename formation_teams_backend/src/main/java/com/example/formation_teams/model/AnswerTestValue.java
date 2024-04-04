@@ -1,9 +1,7 @@
 package com.example.formation_teams.model;
 
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +19,8 @@ public class AnswerTestValue {
     private AnswerTestValueKey id;
 
     private int answer;
+
+    @ManyToOne
+    @JoinColumn(name="passing_id")
+    private PassingTest passingTest;
 }
