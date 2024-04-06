@@ -20,6 +20,7 @@ public class PassingTestRequest {
 
       PassingTest passingTest = new PassingTest();
 
+      passingTest.setPassingId(id);
       passingTest.setAnswers(this.answers.stream().map(u -> u.toAnswer(id)).toList());
 
       return passingTest;

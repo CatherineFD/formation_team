@@ -36,6 +36,6 @@ public class PassingTest {
 
     private int result;
 
-    @OneToMany(mappedBy = "passingTest")
+    @OneToMany(mappedBy = "passingTest", cascade = CascadeType.ALL)
     private List<AnswerTestValue> answers;
 }

@@ -5,6 +5,7 @@ import com.example.formation_teams.model.AnswerTestValue;
 import com.example.formation_teams.model.PassingTest;
 import com.example.formation_teams.model.Position;
 import com.example.formation_teams.model.User;
+import com.example.formation_teams.repo.AnswerTestValueRepo;
 import com.example.formation_teams.repo.PassingTestRepo;
 import com.example.formation_teams.service.PassingTestService;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class PassingTestServiceImpl implements PassingTestService {
 
 //        PassingTest passingTest = passingTestRequest.toPassingTest();
         PassingTest passingTest = passingTestRepo.save(new PassingTest());
+//        PassingTest passingTest = new PassingTest();
 
         passingTest = passingTestRequest.toPassingTest(passingTest.getPassingId());
         passingTest.setPosition(position);
