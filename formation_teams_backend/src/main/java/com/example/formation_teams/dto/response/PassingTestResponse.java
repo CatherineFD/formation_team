@@ -5,13 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 
-@Builder
 @Data
 public class PassingTestResponse {
-
-    private String name;
-
-    private List<?> competencies;
-
-
+    List<UserResultCompetenceTestResponse> usersResult;
 }

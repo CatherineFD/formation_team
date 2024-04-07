@@ -1,11 +1,12 @@
 package com.example.formation_teams.service.impl;
 
 import com.example.formation_teams.dto.request.PassingTestRequest;
+import com.example.formation_teams.dto.response.PassingTestResponse;
+import com.example.formation_teams.dto.response.UserResultCompetenceTestResponse;
 import com.example.formation_teams.model.AnswerTestValue;
 import com.example.formation_teams.model.PassingTest;
 import com.example.formation_teams.model.Position;
 import com.example.formation_teams.model.User;
-import com.example.formation_teams.repo.AnswerTestValueRepo;
 import com.example.formation_teams.repo.PassingTestRepo;
 import com.example.formation_teams.service.PassingTestService;
 import lombok.AllArgsConstructor;
@@ -23,10 +24,8 @@ public class PassingTestServiceImpl implements PassingTestService {
 
     @Override
     public PassingTest create(PassingTestRequest passingTestRequest, User user, Position position) {
-
-//        PassingTest passingTest = passingTestRequest.toPassingTest();
         PassingTest passingTest = passingTestRepo.save(new PassingTest());
-//        PassingTest passingTest = new PassingTest();
+
 
         passingTest = passingTestRequest.toPassingTest(passingTest.getPassingId());
         passingTest.setPosition(position);
@@ -49,6 +48,13 @@ public class PassingTestServiceImpl implements PassingTestService {
         }
 
         return countNumber;
+    }
+
+    public PassingTestResponse getPassingTestResponse(PassingTest passingTest) {
+        PassingTestResponse passingTestResponse = new PassingTestResponse();
+
+
+        return passingTestResponse;
     }
 
 
