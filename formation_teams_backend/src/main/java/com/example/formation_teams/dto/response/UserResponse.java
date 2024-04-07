@@ -23,6 +23,7 @@ public class UserResponse {
     private String phone;
     private String position;
     private List<PositionNameResponse> positions;
+    private List<PassingTestResponse> testResults;
 
     public static UserResponse fromUser(User user) {
         return builder()
@@ -33,6 +34,7 @@ public class UserResponse {
                 .lastName(user.getLastName())
                 .position(user.getPosition())
                 .positions(user.getPositions().stream().map(PositionNameResponse::fromPositionName).toList())
+                .testResults(user.getPassingTest().stream().map(PassingTestResponse::fromPassingTest).toList())
                 .build();
     }
 }

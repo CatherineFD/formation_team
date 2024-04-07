@@ -1,12 +1,10 @@
 package com.example.formation_teams.service.impl;
 
 import com.example.formation_teams.dto.request.PassingTestRequest;
+import com.example.formation_teams.dto.response.AnswerTestValueResponse;
+import com.example.formation_teams.dto.response.CompetenceTestResponse;
 import com.example.formation_teams.dto.response.PassingTestResponse;
-import com.example.formation_teams.dto.response.UserResultCompetenceTestResponse;
-import com.example.formation_teams.model.AnswerTestValue;
-import com.example.formation_teams.model.PassingTest;
-import com.example.formation_teams.model.Position;
-import com.example.formation_teams.model.User;
+import com.example.formation_teams.model.*;
 import com.example.formation_teams.repo.PassingTestRepo;
 import com.example.formation_teams.service.PassingTestService;
 import lombok.AllArgsConstructor;
@@ -49,13 +47,5 @@ public class PassingTestServiceImpl implements PassingTestService {
 
         return countNumber;
     }
-
-    public PassingTestResponse getPassingTestResponse(PassingTest passingTest) {
-        PassingTestResponse passingTestResponse = new PassingTestResponse();
-
-
-        return passingTestResponse;
-    }
-
 
 }
