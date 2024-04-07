@@ -22,5 +22,6 @@ public class AnswerTestValue {
 
     @ManyToOne
     @JoinColumn(name="passing_id")
+    @MapsId("passingId")
     private PassingTest passingTest;
 }

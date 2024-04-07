@@ -9,9 +9,9 @@ import java.util.List;
 @Data
 public class PassingTestResponse {
 
-    String name;
+    private String name;
 
-    List<?> competencies;
+    private List<?> competencies;
 
 
 }
