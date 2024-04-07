@@ -2,13 +2,18 @@ package com.example.formation_teams.dto.response;
 
 import com.example.formation_teams.model.Position;
 import com.example.formation_teams.model.User;
+import com.example.formation_teams.model.PassingTest;
 import com.example.formation_teams.dto.response.PositionNameResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -26,6 +31,14 @@ public class UserResponse {
     private List<PassingTestResponse> testResults;
 
     public static UserResponse fromUser(User user) {
+
+        Map<Position, PassingTest> latestTestsByPosition = user.getPassingTest().stream()
+                .collect(Collectors.groupingBy(PassingTest::getPosition,
+                        Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(PassingTest::getDatePassing)),
+                                Optional::get)));
+
+        List<PassingTest> latestTests = latestTestsByPosition.values().stream()
+                .collect(Collectors.toList());
         return builder()
                 .id(user.getId())
                 .email(user.getEmail())
@@ -34,7 +47,7 @@ public class UserResponse {
                 .lastName(user.getLastName())
                 .position(user.getPosition())
                 .positions(user.getPositions().stream().map(PositionNameResponse::fromPositionName).toList())
-                .testResults(user.getPassingTest().stream().map(PassingTestResponse::fromPassingTest).toList())
+                .testResults(latestTests.stream().map(PassingTestResponse::fromPassingTest).toList())
                 .build();
     }
 }
