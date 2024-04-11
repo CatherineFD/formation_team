@@ -13,6 +13,7 @@ import com.example.formation_teams.model.User;
 import com.example.formation_teams.service.AppointTestService;
 import com.example.formation_teams.service.PositionService;
 import com.example.formation_teams.service.UserService;
+import com.example.formation_teams.service.impl.CompetenceServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -118,7 +119,11 @@ public class UserController {
             competencies = userService.getQuestionTest(positionId);
         }
 
-        return ResponseEntity.ok(competencies.stream().map(u -> CompetenceResponse.fromCompetence(u)).collect(Collectors.toList()));
+        List<CompetenceResponse> competenceResponse = competencies.stream().map(u -> CompetenceResponse.fromCompetence(u)).collect(Collectors.toList());
+
+        competenceResponse = CompetenceServiceImpl.mixingCompetence(competenceResponse);
+
+        return ResponseEntity.ok(competenceResponse);
 
     }
 
