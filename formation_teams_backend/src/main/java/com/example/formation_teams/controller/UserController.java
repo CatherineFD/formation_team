@@ -43,7 +43,7 @@ public class UserController {
         if (principal != null)
         {
             User user = userService.getByEmail(principal.getName());
-            return ResponseEntity.ok(LoginResponse.fromUser(user));
+            return ResponseEntity.ok(UserResponse.fromUser(user));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -89,8 +89,10 @@ public class UserController {
                break;
             }
         }
+
+        Position position = positionService.findById(positionId);
         if(!isAppoint) {
-            appointTestService.appointTest(user, positionId);
+            appointTestService.appointTest(user, positionId, position);
             user = userService.getById(id);
         }
 

@@ -25,4 +25,9 @@ public class AppointTest {
     @JsonIgnore
     @MapsId("userId")
     private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="position_id")
+    @MapsId("positionId")
+    private Position position;
 }

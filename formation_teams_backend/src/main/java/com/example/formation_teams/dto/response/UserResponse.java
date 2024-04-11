@@ -28,7 +28,7 @@ public class UserResponse {
     private String phone;
     private String position;
     private List<PositionNameResponse> positions;
-    private List<PassingTestResponse> testResults;
+    private List<PassingTestResponse> competenceResult;
 
     public static UserResponse fromUser(User user) {
 
@@ -46,8 +46,8 @@ public class UserResponse {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .position(user.getPosition())
-                .positions(user.getPositions().stream().map(PositionNameResponse::fromPositionName).toList())
-                .testResults(latestTests.stream().map(PassingTestResponse::fromPassingTest).toList())
+                .positions(user.getPositions().stream().map(p -> PositionNameResponse.fromPositionName(p, user)).toList())
+                .competenceResult(latestTests.stream().map(PassingTestResponse::fromPassingTest).toList())
                 .build();
     }
 }

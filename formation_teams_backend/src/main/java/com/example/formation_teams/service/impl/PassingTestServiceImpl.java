@@ -5,6 +5,7 @@ import com.example.formation_teams.dto.response.AnswerTestValueResponse;
 import com.example.formation_teams.dto.response.CompetenceTestResponse;
 import com.example.formation_teams.dto.response.PassingTestResponse;
 import com.example.formation_teams.model.*;
+import com.example.formation_teams.repo.AppointTestRepo;
 import com.example.formation_teams.repo.PassingTestRepo;
 import com.example.formation_teams.service.PassingTestService;
 import lombok.AllArgsConstructor;
@@ -18,12 +19,19 @@ import java.util.List;
 public class PassingTestServiceImpl implements PassingTestService {
 
     private PassingTestRepo passingTestRepo;
+    private AppointTestRepo appointTestRepo;
 
 
     @Override
     public PassingTest create(PassingTestRequest passingTestRequest, User user, Position position) {
         PassingTest passingTest = passingTestRepo.save(new PassingTest());
 
+        for(AppointTest appointTest: user.getAppointTests()) {
+           if (appointTest.getId().getPositionId() == position.getPositionId()) {
+               appointTest.setPassed(true);
+               appointTestRepo.save(appointTest);
+           }
+        }
 
         passingTest = passingTestRequest.toPassingTest(passingTest.getPassingId());
         passingTest.setPosition(position);

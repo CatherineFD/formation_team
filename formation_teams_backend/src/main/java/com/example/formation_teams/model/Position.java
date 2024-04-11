@@ -36,4 +36,7 @@ public class Position {
 
     @OneToMany(mappedBy = "position")
     private List<PassingTest> passingTest;
+
+    @OneToMany(mappedBy = "position")
+    private List<AppointTest> appointTest;
 }
