@@ -36,10 +36,10 @@ public class PassingTestServiceImpl implements PassingTestService {
         passingTest = passingTestRequest.toPassingTest(passingTest.getPassingId());
         passingTest.setPosition(position);
         passingTest.setUser(user);
-        passingTest.setResult(countResultQuestions(passingTest.getAnswers()));
+//        passingTest.setResult(countResultQuestions(passingTest.getAnswers()));
 
-        int countNumberQuestions = passingTest.getAnswers().size();
-        passingTest.setNumberQuestions(countNumberQuestions);
+//        int countNumberQuestions = passingTest.getAnswers().size();
+//        passingTest.setNumberQuestions(countNumberQuestions);
 
         Date currestDate = new Date();
         passingTest.setDatePassing(currestDate);

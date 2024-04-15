@@ -32,9 +32,9 @@ public class PassingTest {
 
     private Date datePassing;
 
-    private int numberQuestions;
-
-    private int result;
+//    private int numberQuestions;
+//
+//    private int result;
 
     @OneToMany(mappedBy = "passingTest", cascade = CascadeType.ALL)
     private List<AnswerTestValue> answers;
