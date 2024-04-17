@@ -1,10 +1,7 @@
 package com.example.formation_teams.controller;
 
-import com.example.formation_teams.dto.request.PositionRequest;
 import com.example.formation_teams.dto.request.UserRequest;
 import com.example.formation_teams.dto.response.CompetenceResponse;
-import com.example.formation_teams.dto.response.LoginResponse;
-import com.example.formation_teams.dto.response.PositionNameResponse;
 import com.example.formation_teams.dto.response.UserResponse;
 import com.example.formation_teams.model.AppointTest;
 import com.example.formation_teams.model.Competence;

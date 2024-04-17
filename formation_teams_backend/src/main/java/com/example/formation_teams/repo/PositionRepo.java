@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository
 public interface PositionRepo extends JpaRepository<Position, Long> {
 
-    Optional<Position> findById(long id);
 
     @Query(value = "select positions.position_id, positions.position, is_passed " +
             "from positions join appoint_test on positions.position_id = appoint_test.position_id " +
